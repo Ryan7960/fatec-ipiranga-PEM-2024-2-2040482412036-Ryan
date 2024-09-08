@@ -1,0 +1,102 @@
+/*--------------------------------------------------------*
+* Disciplina: Programaçao Estruturada e Modular *
+*          Prof. Carlos Veríssimo                        *
+*--------------------------------------------------------*
+* Objetivo do Programa: Exibir um tabuleiro de xadrez e simular a jogada "Xeque Pastor"*
+* Data - 06/09/2024* 
+* Autor: Ryan Almeida Silva*
+*--------------------------------------------------------*/
+
+#include <stdio.h>
+#include <string.h>
+
+void Exibir(char tabuleiro[8][8][4]){
+    printf("\nTabuleiro de Xadrez:\n");
+    printf("\n   A   B   C   D   E   F   G   H\n");
+    printf("  ----------------------------------\n");
+    for (int i = 0; i < 8; i++) {
+        printf("%d |  ", 8 - i);
+            for (int j = 0; j < 8; j++) {
+                if (tabuleiro[i][j][0] != '\0') 
+                    printf("%-3s ", tabuleiro[i][j]);
+                else
+                    printf("    "); 
+            }
+            printf("\n");
+        }
+    }
+    
+    void MoverPeca(char tabuleiro[8][8][4], int linhaOrigem, int colunaOrigem, int linhaDestino, int colunaDestino) {
+    strcpy(tabuleiro[linhaDestino][colunaDestino], tabuleiro[linhaOrigem][colunaOrigem]);
+    strcpy(tabuleiro[linhaOrigem][colunaOrigem], "...");
+}
+    void XequePastor(char tabuleiro[8][8][4]) {
+
+    printf ("\n====================================\n");
+    printf ("\n             JOGADA 1               \n");
+    printf ("\n====================================\n");
+    
+    printf("\nPeão branco para e4\n");
+    MoverPeca(tabuleiro, 6, 4, 4, 4); 
+    Exibir(tabuleiro);
+    printf ("\n------------------------------------\n");
+    printf("\nPeão preto para e5\n");
+    MoverPeca(tabuleiro, 1, 4, 3, 4); 
+    Exibir(tabuleiro);
+
+    printf ("\n====================================\n");
+    printf ("\n             JOGADA 2               \n");
+    printf ("\n====================================\n");
+    
+    printf("\nBispo branco para c4\n");
+    MoverPeca(tabuleiro, 7, 5, 4, 2); 
+    Exibir(tabuleiro);
+    printf ("\n------------------------------------\n");
+    printf("\nCavalo preto para c6\n");
+    MoverPeca(tabuleiro, 0, 1, 2, 2);
+    Exibir(tabuleiro);
+
+    printf ("\n====================================\n");
+    printf ("\n             JOGADA 3               \n");
+    printf ("\n====================================\n");
+    
+    printf("\nDama branca para h5\n");
+    MoverPeca(tabuleiro, 7, 3, 3, 7);
+    Exibir(tabuleiro);
+    printf ("\n----------------------------------\n");
+    printf("\nCavalo preto para f6\n");
+    MoverPeca(tabuleiro, 0, 6, 2, 5);
+    Exibir(tabuleiro);
+
+    printf ("\n====================================\n");
+    printf ("\n             JOGADA 4               \n");
+    printf ("\n====================================\n");
+    
+    printf("\nDama branca captura o peão e aplica Xeque-mate\n");
+    MoverPeca(tabuleiro, 3, 7, 1, 5);
+    Exibir(tabuleiro);
+    
+}
+
+int main() {
+    printf ("\n====================================\n");
+    printf ("\n    POSIÇÃO INICIAL DO TABULEIRO    \n");
+    printf ("\n====================================\n");
+    char tabuleiro[8][8][4] = {
+        {"TP1", "CP2", "BP3", "DP4", "RP5", "BP6", "CP7", "TP8"}, 
+        {"PP1", "PP2", "PP3", "PP4", "PP5", "PP6", "PP7", "PP8"}, 
+        {"", "", "", "", "", "", "", ""}, 
+        {"", "", "", "", "", "", "", ""},
+        {"", "", "", "", "", "", "", ""},
+        {"", "", "", "", "", "", "", ""}, 
+        {"BP1", "BP2", "BP3", "BP4", "BP5", "BP6", "BP7", "BP8"}, 
+        {"TB1", "CB2", "BB3", "DB4", "RB5", "BB6", "CB7", "TB8"}
+    };
+    Exibir(tabuleiro);
+    
+    XequePastor(tabuleiro);
+    printf ("\n====================================\n");
+    printf ("\n          FIM DA SIMULAÇÃO          \n");
+    printf ("\n====================================\n");
+    return 0;
+}
