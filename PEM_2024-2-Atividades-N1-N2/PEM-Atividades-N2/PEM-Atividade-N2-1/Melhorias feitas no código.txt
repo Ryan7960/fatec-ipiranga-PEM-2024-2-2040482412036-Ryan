@@ -1,0 +1,6 @@
+Pontos melhorados no código do Bubble Sort.
+
+1 - Entrada de números sendo feitas pelo usuário
+2 - Adição de uma variável de verificação de trocas para evitar execuções do looping desnecessárias
+3 - Adição de um printf com a formatação dos números na hora de saída do array tanto original quanto ordenado
+4 - O tamanho do array antes era limitado a apenas 5 números, então agora ele tem tamanho máximo definido pelo usuário.
