@@ -3,7 +3,7 @@
 *          Prof. Carlos Veríssimo                              *
 *--------------------------------------------------------------*
 * Objetivo do Programa: Bubble Sort com código melhorado       *
-* Data: 04/09/2024                                             * 
+* Data: 04/10/2024                                             * 
 * Autor: Ryan Almeida Silva                                    *
 *--------------------------------------------------------------*/
 

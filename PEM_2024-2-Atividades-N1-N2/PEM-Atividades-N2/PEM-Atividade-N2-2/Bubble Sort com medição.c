@@ -2,13 +2,14 @@
 * Disciplina: Programação Estruturada e Modular                                 *
 *          Prof. Carlos Veríssimo                                               *
 *-------------------------------------------------------------------------------*
-* Objetivo do Programa: Solicitar números e ordenar com o Bubble Sort 		* 
-* Data: 04/10/2024                                                              * 
+* Objetivo do Programa: Ordenar com o Bubble Sort com objetivo de mostrar tempo, quantidade de trocas e ciclos* 
+* Data: 11/10/2024                                                              * 
 * Autor: Ryan Almeida Silva                                                     *
 /*------------------------------------------------------------------------------*/
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 // Função para imprimir o array
 void imprimirArray(int *array, int n) {
@@ -21,31 +22,17 @@ void imprimirArray(int *array, int n) {
     printf("\n");
 }
 
-// Função para inserir os números do usuário
-int* inserirNum(int n) {
-    int *array = (int *)malloc(n * sizeof(int)); // Aloca memória para o array dinâmico
-    if (array == NULL) {
-        printf("Erro ao alocar memória.\n"); // Verifica se a alocação de memória foi bem-sucedida
-        exit(1); // Encerra o programa se a alocação de memória falhar
-    }
-
-// Solicita que o usuário que digite os números
-    printf("Digite %d numeros (OBS: separados por espaço):\n", n);
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &array[i]); // Executa a leitura de cada número do usuário
-    }
-    return array; // Retorna o ponteiro para o array armazenando os elementos
-}
-
 // Função para realizar a ordenação Bubble Sort
-void bubbleSort(int *array, int n) {
+void bubbleSort(int *array, int n, int *trocas, int *ciclos) {
     int trocou; // Variável para verificar se houve troca
 
     for (int i = 0; i < n - 1; i++) { // Loop para cada elemento
+        (*ciclos) += 1;
         trocou = 0; // Inicializa a verificação de troca
 
         for (int j = 0; j < n - i - 1; j++) { // Loop para comparação e troca
             if (array[j] > array[j + 1]) { // Se o elemento atual for maior que o próximo
+            (*trocas) += 1;
                 // Troca os elementos
                 int temp = array[j]; // Armazena o valor atual
                 array[j] = array[j + 1]; // Troca com o próximo
@@ -53,7 +40,6 @@ void bubbleSort(int *array, int n) {
                 trocou = 1; // Define se houve uma troca
             }
         }
-
         // Se não houve troca, o array já está ordenado
         if (trocou == 0) {
             break; // Encerra o loop
@@ -63,32 +49,43 @@ void bubbleSort(int *array, int n) {
 
 // Função principal
 int main() {
-    int n;
-
-    printf("Digite a quantidade de numeros: ");
-    scanf("%d", &n); // Lê a quantidade de elementos que o usuário deseja inserir
-
-    // Verifica se n é positivo
-    if (n <= 0) {
-        printf("Por favor, insira um numero positivo.\n"); // Mensagem de erro se n não for positivo
-        return 1; // Encerra o programa
-    }
-
-    // Insere elementos e aloca memória para o array
-    int *array = inserirNum(n); // Chama a função de alocação de memória e inserção de elementos
-
+    int trocas = 0;
+    int ciclos = 0;
+    int numeros[] = {5, 3, 8, 4, 2,
+        115, 113, 118, 114, 112,
+        125, 123, 128, 124, 122,
+        35, 33, 38, 34, 32,
+        45, 43, 48, 44, 42,
+        55, 53, 58, 54, 52,
+        65, 63, 68, 64, 62,
+        75, 73, 78, 74, 72,
+        85, 83, 88, 84, 82,
+        95, 93, 98, 94, 92,
+        15, 13, 18, 14, 12,
+        25, 23, 28, 24, 22
+       
+    };
+    
+    int quantidadeNumeros = sizeof(numeros) / sizeof(numeros[0]);
+    
     // Exibe o array original
     printf("Array original: ");
-    imprimirArray(array, n); // Imprime o array não ordenado
+    imprimirArray(numeros, n);
 
-    // Classifica o array usando Bubble Sort
-    bubbleSort(array, n); // Chama a função de ordenação
+    clock_t start = clock();
+    
+    bubbleSort(numeros, n, &trocas, &ciclos); 
+    
+    clock_t end = clock();
+    double cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
 
     // Exibe o array ordenado
     printf("Array ordenado: ");
-    imprimirArray(array, n); // Imprime o array ordenado
+    imprimirArray(numeros, n); 
 
-    // Libera a memória alocada
-    free(array); // Libera a memória do array dinâmico
+    printf("\nTempo de execução: %f segundos\n", cpu_time_used);
+    printf("\nQuantidade de trocas: %d\n", trocas);
+    printf("\nQuantidade de ciclos: %d\n", ciclos);
+     
     return 0;
 }
