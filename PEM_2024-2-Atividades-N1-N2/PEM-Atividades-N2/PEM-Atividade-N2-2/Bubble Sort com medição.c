@@ -70,18 +70,18 @@ int main() {
     
     // Exibe o array original
     printf("Array original: ");
-    imprimirArray(numeros, n);
+    imprimirArray(numeros, quantidadeNumeros);
 
     clock_t start = clock();
     
-    bubbleSort(numeros, n, &trocas, &ciclos); 
+    bubbleSort(numeros, quantidadeNumeros, &trocas, &ciclos); 
     
     clock_t end = clock();
     double cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
 
     // Exibe o array ordenado
     printf("Array ordenado: ");
-    imprimirArray(numeros, n); 
+    imprimirArray(numeros, quantidadeNumeros); 
 
     printf("\nTempo de execução: %f segundos\n", cpu_time_used);
     printf("\nQuantidade de trocas: %d\n", trocas);
